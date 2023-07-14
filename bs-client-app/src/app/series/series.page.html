@@ -1,0 +1,50 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Serien</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" [scrollY]="true">
+  <!-- <cdk-virtual-scroll-viewport
+    itemSize="56"
+    minBufferPx="900"
+    maxBufferPx="1350"
+  >
+    <ion-grid>
+      <ion-row>
+        <ion-col
+          *cdkVirtualFor="let s of filteredSeries$ | async"
+          sizeXl="3"
+          sizeLg="4"
+          sizeMd="4"
+          sizeSm="6"
+          sizeXs="12"
+        >
+          <app-series-card [series]="s"> </app-series-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </cdk-virtual-scroll-viewport> -->
+
+  <ion-grid>
+    <ion-row>
+      <ion-col
+        *ngFor="let s of filteredSeries$ | async"
+        sizeXl="3"
+        sizeLg="4"
+        sizeMd="4"
+        sizeSm="6"
+        sizeXs="12"
+      >
+        <app-series-card
+          [series]="s"
+          (favoriteClick)="onFavoriteClick(s.title, $event)"
+        >
+        </app-series-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

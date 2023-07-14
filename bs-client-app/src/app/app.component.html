@@ -1,0 +1,60 @@
+<ion-split-pane contentId="main-content">
+  <ion-menu contentId="main-content" type="overlay">
+    <ion-content>
+      <ion-list id="labels-list" *ngIf="activeFilter$ | async as filter">
+        <ion-list-header>Filter</ion-list-header>
+
+        <!-- Text search -->
+        <ion-item>
+          <ion-input
+            label="Suche"
+            placeholder="Titel, Beschreibung, Genre..."
+            (ionInput)="onFilterQueryInput($event)"
+            [value]="filter.query"
+          ></ion-input>
+        </ion-item>
+
+        <!-- Genre filter -->
+        <ion-item>
+          <ion-select
+            label="Genre"
+            [multiple]="true"
+            (ionChange)="onGenreFilterChange($event)"
+            [value]="filter.genre"
+          >
+            <ion-select-option
+              *ngFor="let genre of genres$ | async"
+              [value]="genre"
+              >{{ genre }}</ion-select-option
+            >
+          </ion-select>
+        </ion-item>
+
+        <!-- Language filter -->
+        <ion-item>
+          <ion-select
+            label="Sprache"
+            (ionChange)="onLanguageFilterChange($event)"
+            [value]="filter.language"
+          >
+            <ion-select-option
+              *ngFor="let language of languages$ | async"
+              [value]="language"
+              >{{ language }}</ion-select-option
+            >
+          </ion-select>
+        </ion-item>
+
+        <!-- Favorites -->
+        <ion-item
+          ><ion-toggle
+            [checked]="filter.showFavorites"
+            (ionChange)="onFavoritesChange($event)"
+            >Nur Favoriten</ion-toggle
+          ></ion-item
+        >
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet id="main-content"></ion-router-outlet>
+</ion-split-pane>

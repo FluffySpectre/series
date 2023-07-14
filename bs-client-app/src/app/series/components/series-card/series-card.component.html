@@ -1,0 +1,30 @@
+<ion-card>
+  <div class="img-container">
+    <ion-img class="cover-img" [src]="series.cover"></ion-img>
+  </div>
+
+  <ion-button class="favorite" fill="clear" (click)="onFavoriteClick()">
+    <ion-icon [name]="series.favorite ? 'heart' : 'heart-outline'"></ion-icon>
+  </ion-button>
+
+  <ion-card-header>
+    <ion-card-title [innerHTML]="series.title | safe : 'html'"></ion-card-title>
+    <ion-card-subtitle>
+      <div>
+        <span *ngFor="let g of series.genres; let i = index">
+          {{ g + (i < series.genres.length - 1 ? ", " : "") }}
+        </span>
+      </div>
+      <div>
+        <span *ngFor="let g of series.languages; let i = index">
+          {{ g + (i < series.languages.length - 1 ? ", " : "") }}
+        </span>
+      </div>
+      <div>{{ series.productionYears }}</div>
+      <div>Staffeln: {{ series.seasons }}</div>
+    </ion-card-subtitle>
+  </ion-card-header>
+  <!-- <ion-card-content>
+    {{ series.description }}
+  </ion-card-content> -->
+</ion-card>
