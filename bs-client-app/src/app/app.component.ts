@@ -63,4 +63,14 @@ export class AppComponent {
     const checked = evt.detail.checked;
     this.seriesService.setFilter({ showFavorites: checked });
   }
+
+  clearFilter(filter: string) {
+    if (filter === 'query') {
+      this.seriesService.setFilter({ query: '' });
+    } else if (filter === 'genre') {
+      this.seriesService.setFilter({ genre: [] });
+    } else if (filter === 'language') {
+      this.seriesService.setFilter({ language: '' });
+    }
+  }
 }

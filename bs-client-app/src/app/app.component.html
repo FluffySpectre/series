@@ -12,6 +12,16 @@
             (ionInput)="onFilterQueryInput($event)"
             [value]="filter.query"
           ></ion-input>
+
+          <ion-button
+            *ngIf="filter.query"
+            size="medium"
+            fill="clear"
+            slot="end"
+            (click)="clearFilter('query')"
+          >
+            <ion-icon name="close-circle-outline"></ion-icon>
+          </ion-button>
         </ion-item>
 
         <!-- Genre filter -->
@@ -28,6 +38,15 @@
               >{{ genre }}</ion-select-option
             >
           </ion-select>
+
+          <ion-button
+            *ngIf="filter.genre && filter.genre.length > 0"
+            size="medium"
+            fill="clear"
+            slot="end"
+            (click)="clearFilter('genre')"
+            ><ion-icon name="close-circle-outline"></ion-icon
+          ></ion-button>
         </ion-item>
 
         <!-- Language filter -->
@@ -43,6 +62,15 @@
               >{{ language }}</ion-select-option
             >
           </ion-select>
+
+          <ion-button
+            *ngIf="filter.language"
+            size="medium"
+            fill="clear"
+            slot="end"
+            (click)="clearFilter('language')"
+            ><ion-icon name="close-circle-outline"></ion-icon
+          ></ion-button>
         </ion-item>
 
         <!-- Favorites -->
