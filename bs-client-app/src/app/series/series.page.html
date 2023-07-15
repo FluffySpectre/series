@@ -41,7 +41,9 @@
       >
         <app-series-card
           [series]="s"
+          [selectedSeriesNr]="selectedSeriesNr"
           (favoriteClick)="onFavoriteClick(s.title, $event)"
+          (toggleDescription)="onToggleDescription($event)"
         >
         </app-series-card>
       </ion-col>

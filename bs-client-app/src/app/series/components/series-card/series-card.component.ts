@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ISeries } from '../../../shared/services/series/series.service.types';
 import { IonicModule } from '@ionic/angular';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { SafePipe } from 'src/app/shared/pipes/safe.pipe';
 
 @Component({
@@ -9,18 +9,20 @@ import { SafePipe } from 'src/app/shared/pipes/safe.pipe';
   templateUrl: './series-card.component.html',
   styleUrls: ['./series-card.component.scss'],
   standalone: true,
-  imports: [IonicModule, NgFor, SafePipe],
+  imports: [IonicModule, NgFor, NgIf, SafePipe],
 })
-export class SeriesCardComponent implements OnInit {
+export class SeriesCardComponent {
   @Input()
   series!: ISeries;
+
+  @Input()
+  selectedSeriesNr!: number;
 
   @Output()
   favoriteClick: EventEmitter<boolean> = new EventEmitter();
 
-  constructor() {}
-
-  ngOnInit() {}
+  @Output()
+  toggleDescription: EventEmitter<number> = new EventEmitter();
 
   onFavoriteClick() {
     if (this.series.favorite === undefined) {
@@ -28,5 +30,9 @@ export class SeriesCardComponent implements OnInit {
     }
     this.series.favorite = !this.series.favorite;
     this.favoriteClick.emit(this.series.favorite);
+  }
+
+  onToggleDescription() {
+    this.toggleDescription.emit(this.series.nr);
   }
 }

@@ -18,6 +18,8 @@ export class SeriesPage {
   favoriteSeries$ = this.seriesService.favoriteSeries$;
   filter$ = this.seriesService.filterAction$;
 
+  selectedSeriesNr: number = 0;
+
   constructor(private seriesService: SeriesService) {}
 
   onFavoriteClick(seriesTitle: string, favorite: boolean) {
@@ -29,5 +31,13 @@ export class SeriesPage {
       newFavorites = [...(favorites || []), seriesTitle];
     }
     this.seriesService.setFavorite(newFavorites);
+  }
+
+  onToggleDescription(seriesNr: number) {
+    if (this.selectedSeriesNr !== seriesNr) {
+      this.selectedSeriesNr = seriesNr;
+    } else {
+      this.selectedSeriesNr = 0;
+    }
   }
 }
