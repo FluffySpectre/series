@@ -45,6 +45,11 @@ export class AppComponent {
     if (activeFilterStorage) {
       this.seriesService.setFilter(JSON.parse(activeFilterStorage));
     }
+
+    const favoritesStorage = localStorage.getItem('favorites');
+    if (favoritesStorage) {
+      this.seriesService.setFavorite(JSON.parse(favoritesStorage));
+    }
   }
 
   onFilterQueryInput(evt: any) {

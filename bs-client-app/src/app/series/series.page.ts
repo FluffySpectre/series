@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
@@ -13,21 +13,21 @@ import { SeriesService } from '../shared/services/series/series.service';
   imports: [IonicModule, CommonModule, SeriesCardComponent, ScrollingModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SeriesPage implements OnInit {
+export class SeriesPage {
   filteredSeries$ = this.seriesService.filteredSeries$;
+  favoriteSeries$ = this.seriesService.favoriteSeries$;
+  filter$ = this.seriesService.filterAction$;
 
   constructor(private seriesService: SeriesService) {}
 
-  ngOnInit() {}
-
   onFavoriteClick(seriesTitle: string, favorite: boolean) {
-    const filter = this.seriesService.getFilter();
-    let favorites = filter.favorites?.filter(
+    const favorites = this.seriesService.getFavorites();
+    let newFavorites = favorites?.filter(
       (f) => (f === seriesTitle && favorite) || f !== seriesTitle
     );
     if (!favorites?.includes(seriesTitle) && favorite) {
-      favorites = [...(favorites || []), seriesTitle];
+      newFavorites = [...(favorites || []), seriesTitle];
     }
-    this.seriesService.setFilter({ ...filter, favorites });
+    this.seriesService.setFavorite(newFavorites);
   }
 }

@@ -13,7 +13,6 @@ export class SeriesService {
     query: '',
     genre: [],
     language: '',
-    favorites: [],
     showFavorites: false,
   });
   filterAction$ = this.filterAction.asObservable();
@@ -55,20 +54,34 @@ export class SeriesService {
         );
       }
       // favorites filter
-      if (filterAction.showFavorites) {
-        filteredSeries = filteredSeries.filter((s) =>
-          filterAction.favorites?.includes(s.title)
-        );
-      }
-      if (filterAction.favorites) {
+      if (this.favoriteAction.value) {
         filteredSeries = filteredSeries.map((s) => {
-          return { ...s, favorite: filterAction.favorites?.includes(s.title) };
+          return {
+            ...s,
+            favorite: this.favoriteAction.value.includes(s.title),
+          };
         });
       }
 
       return filteredSeries;
     })
     // map(([series, filterAction]) => series)
+  );
+
+  private favoriteAction = new BehaviorSubject<string[]>([]);
+  favoriteAction$ = this.favoriteAction.asObservable();
+
+  favoriteSeries$ = combineLatest([
+    this.filteredSeries$,
+    this.favoriteAction,
+  ]).pipe(
+    map(([series, favoriteAction]) =>
+      series
+        .map((s) => {
+          return { ...s, favorite: favoriteAction?.includes(s.title) };
+        })
+        .filter((s) => s.favorite)
+    )
   );
 
   constructor(private http: HttpClient) {}
@@ -81,5 +94,15 @@ export class SeriesService {
 
   getFilter(): ISeriesFilter {
     return this.filterAction.value;
+  }
+
+  setFavorite(favorites: string[]) {
+    const newFavorites = [...favorites];
+    this.favoriteAction.next(newFavorites);
+    localStorage.setItem('favorites', JSON.stringify(newFavorites));
+  }
+
+  getFavorites(): string[] {
+    return this.favoriteAction.value;
   }
 }

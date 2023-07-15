@@ -30,9 +30,9 @@
   </cdk-virtual-scroll-viewport> -->
 
   <ion-grid>
-    <ion-row>
+    <ion-row *ngIf="filter$ | async as filter">
       <ion-col
-        *ngFor="let s of filteredSeries$ | async"
+        *ngFor="let s of (filter.showFavorites ? favoriteSeries$ : filteredSeries$) | async"
         sizeXl="3"
         sizeLg="4"
         sizeMd="4"

@@ -15,6 +15,5 @@ export interface ISeriesFilter {
   query?: string;
   genre?: string[];
   language?: string;
-  favorites?: string[]; // contains the titles of favorite series
   showFavorites?: boolean;
 }
