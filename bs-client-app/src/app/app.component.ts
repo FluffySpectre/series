@@ -39,6 +39,7 @@ export class AppComponent {
   );
 
   activeFilter$ = this.seriesService.filterAction$;
+  private dampTimeout: number = 0;
 
   constructor(private seriesService: SeriesService) {
     const activeFilterStorage = localStorage.getItem('activeFilter');
@@ -53,7 +54,11 @@ export class AppComponent {
   }
 
   onFilterQueryInput(evt: any) {
-    this.seriesService.setFilter({ query: evt.detail.value });
+    window.clearTimeout(this.dampTimeout);
+    this.dampTimeout = window.setTimeout(
+      () => this.seriesService.setFilter({ query: evt.detail.value }),
+      200
+    );
   }
 
   onGenreFilterChange(evt: any) {
