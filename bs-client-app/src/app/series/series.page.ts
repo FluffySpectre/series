@@ -4,13 +4,21 @@ import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { SeriesCardComponent } from './components/series-card/series-card.component';
 import { SeriesService } from '../shared/services/series/series.service';
+import { ISeries } from '../shared/services/series/series.service.types';
+import { SafePipe } from '../shared/pipes/safe.pipe';
 
 @Component({
   selector: 'app-series',
   templateUrl: './series.page.html',
   styleUrls: ['./series.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, SeriesCardComponent, ScrollingModule],
+  imports: [
+    IonicModule,
+    CommonModule,
+    SeriesCardComponent,
+    ScrollingModule,
+    SafePipe,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SeriesPage {
@@ -18,7 +26,7 @@ export class SeriesPage {
   favoriteSeries$ = this.seriesService.favoriteSeries$;
   filter$ = this.seriesService.filterAction$;
 
-  selectedSeriesNr: number = 0;
+  selectedSeries?: ISeries;
 
   constructor(private seriesService: SeriesService) {}
 
@@ -33,11 +41,11 @@ export class SeriesPage {
     this.seriesService.setFavorite(newFavorites);
   }
 
-  onToggleDescription(seriesNr: number) {
-    if (this.selectedSeriesNr !== seriesNr) {
-      this.selectedSeriesNr = seriesNr;
+  onToggleDescription(series: ISeries) {
+    if (!this.selectedSeries || this.selectedSeries?.nr !== series.nr) {
+      this.selectedSeries = { ...series };
     } else {
-      this.selectedSeriesNr = 0;
+      this.selectedSeries = undefined;
     }
   }
 }

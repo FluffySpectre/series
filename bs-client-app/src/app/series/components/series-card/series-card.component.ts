@@ -15,14 +15,11 @@ export class SeriesCardComponent {
   @Input()
   series!: ISeries;
 
-  @Input()
-  selectedSeriesNr!: number;
-
   @Output()
   favoriteClick: EventEmitter<boolean> = new EventEmitter();
 
   @Output()
-  toggleDescription: EventEmitter<number> = new EventEmitter();
+  toggleDescription: EventEmitter<ISeries> = new EventEmitter();
 
   onFavoriteClick() {
     if (this.series.favorite === undefined) {
@@ -33,6 +30,6 @@ export class SeriesCardComponent {
   }
 
   onToggleDescription() {
-    this.toggleDescription.emit(this.series.nr);
+    this.toggleDescription.emit(this.series);
   }
 }

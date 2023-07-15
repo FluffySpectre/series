@@ -29,7 +29,4 @@
       <div>Staffeln: {{ series.seasons }}</div>
     </ion-card-subtitle>
   </ion-card-header>
-  <ion-card-content *ngIf="selectedSeriesNr === series.nr">
-    <ion-text [innerHTML]="series.description | safe : 'html'"></ion-text>
-  </ion-card-content>
 </ion-card>
