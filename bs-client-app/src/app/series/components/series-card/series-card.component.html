@@ -8,7 +8,11 @@
     <ion-img class="cover-img" [src]="series.cover"></ion-img>
   </div>
 
-  <ion-button class="favorite" fill="clear" (click)="onFavoriteClick()">
+  <ion-button
+    class="favorite"
+    fill="clear"
+    (click)="onFavoriteClick(); $event.stopPropagation()"
+  >
     <ion-icon [name]="series.favorite ? 'heart' : 'heart-outline'"></ion-icon>
   </ion-button>
 
