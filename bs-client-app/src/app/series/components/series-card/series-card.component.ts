@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ISeries } from '../../../shared/services/series/series.service.types';
 import { IonicModule } from '@ionic/angular';
-import { NgFor, NgIf } from '@angular/common';
+import { NgClass, NgFor, NgIf } from '@angular/common';
 import { SafePipe } from 'src/app/shared/pipes/safe.pipe';
 
 @Component({
@@ -9,11 +9,14 @@ import { SafePipe } from 'src/app/shared/pipes/safe.pipe';
   templateUrl: './series-card.component.html',
   styleUrls: ['./series-card.component.scss'],
   standalone: true,
-  imports: [IonicModule, NgFor, NgIf, SafePipe],
+  imports: [IonicModule, NgFor, NgIf, NgClass, SafePipe],
 })
 export class SeriesCardComponent {
   @Input()
   series!: ISeries;
+
+  @Input()
+  selected: boolean = false;
 
   @Output()
   favoriteClick: EventEmitter<boolean> = new EventEmitter();

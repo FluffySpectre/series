@@ -41,6 +41,7 @@
       >
         <app-series-card
           [series]="s"
+          [selected]="selectedSeries && selectedSeries.nr === s.nr ? true : false"
           (favoriteClick)="onFavoriteClick(s.title, $event)"
           (toggleDescription)="onToggleDescription($event)"
         >

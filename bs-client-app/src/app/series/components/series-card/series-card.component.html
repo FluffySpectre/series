@@ -1,6 +1,7 @@
 <ion-card
   (click)="onToggleDescription()"
   class="ion-activatable ripple-parent rounded-rectangle"
+  [ngClass]="{ selected: selected }"
 >
   <ion-ripple-effect></ion-ripple-effect>
 
