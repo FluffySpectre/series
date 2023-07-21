@@ -51,13 +51,17 @@
   </ion-grid>
 </ion-content>
 
-<ion-modal [isOpen]="selectedSeries !== undefined">
+<ion-modal
+  #modal
+  [isOpen]="selectedSeries !== undefined"
+  (willDismiss)="selectedSeries = undefined"
+>
   <ng-template>
     <ion-header>
       <ion-toolbar>
         <ion-title>Beschreibung</ion-title>
         <ion-buttons slot="end">
-          <ion-button (click)="selectedSeries = undefined"
+          <ion-button (click)="modal.dismiss()"
             ><ion-icon name="close"></ion-icon
           ></ion-button>
         </ion-buttons>
