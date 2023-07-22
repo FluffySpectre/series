@@ -65,7 +65,7 @@
           </ion-select>
 
           <ion-button
-            *ngIf="filter.language"
+            *ngIf="filter.language && filter.language.length > 0"
             size="medium"
             fill="clear"
             slot="end"
