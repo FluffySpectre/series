@@ -55,7 +55,7 @@ export class SeriesService {
       // language filter
       if (filterAction.language && filterAction.language.length > 0) {
         filteredSeries = filteredSeries.filter((s) =>
-          filterAction.language?.every((language) =>
+          filterAction.language?.some((language) =>
             s.languages.includes(language)
           )
         );
