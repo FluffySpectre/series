@@ -84,7 +84,7 @@ export class AppComponent {
     } else if (filter === 'genre') {
       this.seriesService.setFilter({ genre: [] });
     } else if (filter === 'language') {
-      this.seriesService.setFilter({ language: '' });
+      this.seriesService.setFilter({ language: [] });
     }
   }
 }

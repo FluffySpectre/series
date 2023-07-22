@@ -16,7 +16,7 @@ export interface ISeries {
 export interface ISeriesFilter {
   query?: string;
   genre?: string[];
-  language?: string;
+  language?: string[];
   fsk18?: boolean;
   showFavorites?: boolean;
 }

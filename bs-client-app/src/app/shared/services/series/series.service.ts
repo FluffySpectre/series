@@ -12,7 +12,7 @@ export class SeriesService {
   private filterAction = new BehaviorSubject<ISeriesFilter>({
     query: '',
     genre: [],
-    language: '',
+    language: [],
     fsk18: false,
     showFavorites: false,
   });
@@ -53,12 +53,11 @@ export class SeriesService {
         );
       }
       // language filter
-      if (filterAction.language) {
-        // an empty language array is treated as language = German
+      if (filterAction.language && filterAction.language.length > 0) {
         filteredSeries = filteredSeries.filter((s) =>
-          s.languages.length > 0
-            ? s.languages.includes(filterAction.language || '')
-            : filterAction.language === 'Deutsch'
+          filterAction.language?.every((language) =>
+            s.languages.includes(language)
+          )
         );
       }
       // fsk18 filter

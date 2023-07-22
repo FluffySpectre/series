@@ -53,6 +53,7 @@
         <ion-item>
           <ion-select
             label="Sprache"
+            [multiple]="true"
             (ionChange)="onLanguageFilterChange($event)"
             [value]="filter.language"
           >
