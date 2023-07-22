@@ -3,7 +3,16 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Serien</ion-title>
+    <ion-title
+      >Serien
+      <ng-container *ngIf="filter$ | async as filter">
+        <span
+          *ngIf="(filter.showFavorites ? favoriteSeries$ : filteredSeries$) | async as series"
+        >
+          ({{ series.length }})</span
+        >
+      </ng-container>
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
