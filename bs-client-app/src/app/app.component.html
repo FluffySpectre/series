@@ -8,7 +8,7 @@
         <ion-item>
           <ion-input
             label="Suche"
-            placeholder="Titel, Beschreibung, Genre..."
+            placeholder="Titel, Beschreibung, Genre, Cast"
             (ionInput)="onFilterQueryInput($event)"
             [value]="filter.query"
           ></ion-input>
@@ -72,6 +72,15 @@
             ><ion-icon name="close-circle-outline" color="dark"></ion-icon
           ></ion-button>
         </ion-item>
+
+        <!-- FSK 18 -->
+        <ion-item
+          ><ion-toggle
+            [checked]="filter.fsk18"
+            (ionChange)="onFSK18Change($event)"
+            >Nur FSK 18</ion-toggle
+          ></ion-item
+        >
 
         <!-- Favorites -->
         <ion-item

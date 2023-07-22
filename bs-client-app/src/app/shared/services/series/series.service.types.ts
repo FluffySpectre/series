@@ -8,6 +8,8 @@ export interface ISeries {
   languages: string[];
   productionYears: string;
   seasons: number;
+  cast?: string[];
+  fsk18?: boolean;
   favorite?: boolean;
 }
 
@@ -15,5 +17,6 @@ export interface ISeriesFilter {
   query?: string;
   genre?: string[];
   language?: string;
+  fsk18?: boolean;
   showFavorites?: boolean;
 }

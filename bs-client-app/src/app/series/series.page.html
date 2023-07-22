@@ -7,7 +7,7 @@
       >Serien
       <ng-container *ngIf="filter$ | async as filter">
         <span
-          *ngIf="(filter.showFavorites ? favoriteSeries$ : filteredSeries$) | async as series"
+          *ngIf="(filter.showFavorites ? favoriteSeriesTotal$ : filteredSeriesTotal$) | async as series"
         >
           ({{ series.length }})</span
         >
@@ -16,28 +16,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" [scrollY]="true">
-  <!-- <cdk-virtual-scroll-viewport
-    itemSize="56"
-    minBufferPx="900"
-    maxBufferPx="1350"
-  >
-    <ion-grid>
-      <ion-row>
-        <ion-col
-          *cdkVirtualFor="let s of filteredSeries$ | async"
-          sizeXl="3"
-          sizeLg="4"
-          sizeMd="4"
-          sizeSm="6"
-          sizeXs="12"
-        >
-          <app-series-card [series]="s"> </app-series-card>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </cdk-virtual-scroll-viewport> -->
-
+<ion-content [fullscreen]="true">
   <ion-grid>
     <ion-row *ngIf="filter$ | async as filter">
       <ion-col
@@ -58,6 +37,10 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+
+  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>
 
 <ion-modal
@@ -77,10 +60,21 @@
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding">
-      <ion-text
-        class="description-text"
-        [innerHTML]="selectedSeries && (selectedSeries.description | safe : 'html')"
-      ></ion-text>
+      <div *ngIf="getCastOfSelectedSeries().length > 0" class="margin-bottom">
+        Cast:
+        <span
+          *ngFor="let c of getCastOfSelectedSeries(); let i = index"
+          [innerHTML]="(c + (i < getCastOfSelectedSeries().length - 1 ? ', ' : '')) | safe : 'html'"
+        >
+        </span>
+      </div>
+
+      <div>
+        <ion-text
+          class="description-text"
+          [innerHTML]="selectedSeries && (selectedSeries.description | safe : 'html')"
+        ></ion-text>
+      </div>
     </ion-content>
   </ng-template>
 </ion-modal>

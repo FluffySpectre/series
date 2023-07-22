@@ -1,11 +1,14 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { IonicModule } from '@ionic/angular';
+import { InfiniteScrollCustomEvent, IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { SeriesCardComponent } from './components/series-card/series-card.component';
 import { SeriesService } from '../shared/services/series/series.service';
 import { ISeries } from '../shared/services/series/series.service.types';
 import { SafePipe } from '../shared/pipes/safe.pipe';
+import { BehaviorSubject, combineLatest, map } from 'rxjs';
+
+const SERIES_ELEMENTS_PER_PAGE = 50;
 
 @Component({
   selector: 'app-series',
@@ -22,8 +25,32 @@ import { SafePipe } from '../shared/pipes/safe.pipe';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SeriesPage {
-  filteredSeries$ = this.seriesService.filteredSeries$;
-  favoriteSeries$ = this.seriesService.favoriteSeries$;
+  private seriesAmount = new BehaviorSubject<number>(0);
+
+  filteredSeriesTotal$ = this.seriesService.filteredSeries$;
+  favoriteSeriesTotal$ = this.seriesService.favoriteSeries$;
+
+  filteredSeries$ = combineLatest([
+    this.seriesService.filteredSeries$,
+    this.seriesAmount,
+  ]).pipe(
+    map(([filteredSeries, seriesAmount]) =>
+      filteredSeries.filter(
+        (s, i) => i < seriesAmount + SERIES_ELEMENTS_PER_PAGE
+      )
+    )
+  );
+  favoriteSeries$ = combineLatest([
+    this.seriesService.favoriteSeries$,
+    this.seriesAmount,
+  ]).pipe(
+    map(([favoriteSeries, seriesAmount]) =>
+      favoriteSeries.filter(
+        (s, i) => i < seriesAmount + SERIES_ELEMENTS_PER_PAGE
+      )
+    )
+  );
+
   filter$ = this.seriesService.filterAction$;
 
   selectedSeries?: ISeries;
@@ -47,5 +74,17 @@ export class SeriesPage {
     } else {
       this.selectedSeries = undefined;
     }
+  }
+
+  getCastOfSelectedSeries(): string[] {
+    if (!this.selectedSeries) {
+      return [];
+    }
+    return this.selectedSeries.cast || [];
+  }
+
+  onIonInfinite(evt: Event) {
+    this.seriesAmount.next(this.seriesAmount.value + SERIES_ELEMENTS_PER_PAGE);
+    setTimeout(() => (evt as InfiniteScrollCustomEvent).target.complete());
   }
 }

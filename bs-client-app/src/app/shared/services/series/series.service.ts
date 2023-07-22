@@ -13,6 +13,7 @@ export class SeriesService {
     query: '',
     genre: [],
     language: '',
+    fsk18: false,
     showFavorites: false,
   });
   filterAction$ = this.filterAction.asObservable();
@@ -38,7 +39,11 @@ export class SeriesService {
               .indexOf(filterAction.query.toLowerCase()) > -1 ||
             s.languages
               .map((l) => l.toLowerCase())
-              .indexOf(filterAction.query.toLowerCase()) > -1
+              .indexOf(filterAction.query.toLowerCase()) > -1 ||
+            (s.cast &&
+              s.cast
+                .map((c) => c.toLowerCase())
+                .indexOf(filterAction.query.toLowerCase()) > -1)
           : true
       );
       // genre filter
@@ -49,9 +54,16 @@ export class SeriesService {
       }
       // language filter
       if (filterAction.language) {
+        // an empty language array is treated as language = German
         filteredSeries = filteredSeries.filter((s) =>
-          s.languages.includes(filterAction.language || '')
+          s.languages.length > 0
+            ? s.languages.includes(filterAction.language || '')
+            : filterAction.language === 'Deutsch'
         );
+      }
+      // fsk18 filter
+      if (filterAction.fsk18) {
+        filteredSeries = filteredSeries.filter((s) => s.fsk18);
       }
       // favorites filter
       if (this.favoriteAction.value) {

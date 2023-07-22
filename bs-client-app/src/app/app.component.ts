@@ -69,6 +69,10 @@ export class AppComponent {
     this.seriesService.setFilter({ language: evt.detail.value });
   }
 
+  onFSK18Change(evt: any) {
+    this.seriesService.setFilter({ fsk18: evt.detail.checked });
+  }
+
   onFavoritesChange(evt: any) {
     const checked = evt.detail.checked;
     this.seriesService.setFilter({ showFavorites: checked });
