@@ -6,7 +6,11 @@
   <ion-ripple-effect></ion-ripple-effect>
 
   <div class="img-container">
-    <ion-img class="cover-img" [src]="series.cover"></ion-img>
+    <ion-img
+      class="cover-img"
+      [src]="loadCoverFailed ? 'assets/placeholder.jpg' : series.cover"
+      (ionError)="loadCoverFailed = true"
+    ></ion-img>
   </div>
 
   <ion-button

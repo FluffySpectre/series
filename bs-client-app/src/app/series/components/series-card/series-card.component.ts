@@ -24,6 +24,8 @@ export class SeriesCardComponent {
   @Output()
   toggleDescription: EventEmitter<ISeries> = new EventEmitter();
 
+  loadCoverFailed = false;
+
   onFavoriteClick() {
     if (this.series.favorite === undefined) {
       this.series.favorite = false;
