@@ -3,7 +3,6 @@ export interface ISeries {
   title: string;
   description: string;
   cover: string;
-  url: string;
   genres: string[];
   languages: string[];
   productionYears: string;
