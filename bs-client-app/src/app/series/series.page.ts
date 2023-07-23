@@ -8,7 +8,7 @@ import { ISeries } from '../shared/services/series/series.service.types';
 import { SafePipe } from '../shared/pipes/safe.pipe';
 import { BehaviorSubject, combineLatest, map } from 'rxjs';
 
-const SERIES_ELEMENTS_PER_PAGE = 50;
+const SERIES_ELEMENTS_PER_PAGE = 25;
 
 @Component({
   selector: 'app-series',
