@@ -15,10 +15,14 @@
 
   <ion-button
     class="favorite"
-    fill="clear"
+    color="light"
     (click)="onFavoriteClick(); $event.stopPropagation()"
   >
-    <ion-icon [name]="series.favorite ? 'heart' : 'heart-outline'"></ion-icon>
+    <ion-icon
+      slot="icon-only"
+      color="primary"
+      [name]="series.favorite ? 'heart' : 'heart-outline'"
+    ></ion-icon>
   </ion-button>
 
   <ion-card-header>
