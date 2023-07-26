@@ -4,6 +4,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { SeriesService } from './shared/services/series/series.service';
 import { map } from 'rxjs';
+import packageJSON from '../../package.json';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,8 @@ import { map } from 'rxjs';
   imports: [IonicModule, RouterLink, RouterLinkActive, CommonModule],
 })
 export class AppComponent {
+  version: string = packageJSON.version;
+
   genres$ = this.seriesService.series$.pipe(
     map((series) => {
       let genres: string[] = [];
