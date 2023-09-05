@@ -7,6 +7,7 @@ import { SeriesService } from '../shared/services/series/series.service';
 import { ISeries } from '../shared/services/series/series.service.types';
 import { SafePipe } from '../shared/pipes/safe.pipe';
 import { BehaviorSubject, combineLatest, map } from 'rxjs';
+import packageJSON from '../../../package.json';
 
 const SERIES_ELEMENTS_PER_PAGE = 25;
 
@@ -86,5 +87,9 @@ export class SeriesPage {
   onIonInfinite(evt: Event) {
     this.seriesAmount.next(this.seriesAmount.value + SERIES_ELEMENTS_PER_PAGE);
     setTimeout(() => (evt as InfiniteScrollCustomEvent).target.complete());
+  }
+
+  getSeriesUpdateDate(): string {
+    return packageJSON.seriesUpdateDate;
   }
 }

@@ -1,8 +1,9 @@
 {
   "name": "series",
   "version": "1.0.0",
-  "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "seriesUpdateDate": "5.9.2023",
+  "author": "Sennio",
+  "homepage": "https://sennio.de",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

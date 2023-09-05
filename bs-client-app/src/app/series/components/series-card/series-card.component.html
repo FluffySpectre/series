@@ -39,7 +39,7 @@
         </span>
       </div>
       <div>{{ series.productionYears }}</div>
-      <div>Staffeln: {{ series.seasons }}</div>
+      <div>Staffeln: {{ series.seasons ? series.seasons : "-" }}</div>
     </ion-card-subtitle>
   </ion-card-header>
 </ion-card>

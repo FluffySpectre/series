@@ -13,6 +13,11 @@
         >
       </ng-container>
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-button [disabled]="true">
+        Stand: {{ getSeriesUpdateDate() }}
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
