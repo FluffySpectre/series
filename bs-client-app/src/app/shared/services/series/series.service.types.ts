@@ -18,4 +18,6 @@ export interface ISeriesFilter {
   language?: string[];
   fsk18?: boolean;
   showFavorites?: boolean;
+  sortAfterProperty?: string;
+  sortDescending?: boolean;
 }

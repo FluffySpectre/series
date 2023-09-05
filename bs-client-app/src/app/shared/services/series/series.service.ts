@@ -15,6 +15,8 @@ export class SeriesService {
     language: [],
     fsk18: false,
     showFavorites: false,
+    sortAfterProperty: 'title',
+    sortDescending: false,
   });
   filterAction$ = this.filterAction.asObservable();
 
@@ -73,6 +75,29 @@ export class SeriesService {
           };
         });
       }
+
+      // sorting
+      filteredSeries.sort((a, b) => {
+        // @ts-ignore
+        const aProp = a[filterAction.sortAfterProperty];
+        // @ts-ignore
+        const bProp = b[filterAction.sortAfterProperty];
+
+        if (filterAction.sortDescending) {
+          if (aProp < bProp) {
+            return 1;
+          } else if (aProp > bProp) {
+            return -1;
+          }
+        } else {
+          if (aProp < bProp) {
+            return -1;
+          } else if (aProp > bProp) {
+            return 1;
+          }
+        }
+        return 0;
+      });
 
       return filteredSeries;
     })

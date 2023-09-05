@@ -81,6 +81,14 @@ export class AppComponent {
     this.seriesService.setFilter({ showFavorites: checked });
   }
 
+  onSortingChange(evt: any) {
+    this.seriesService.setFilter({ sortAfterProperty: evt.detail.value });
+  }
+
+  onSortingDescendChange(evt: any) {
+    this.seriesService.setFilter({ sortDescending: evt.detail.checked });
+  }
+
   clearFilter(filter: string) {
     if (filter === 'query') {
       this.seriesService.setFilter({ query: '' });

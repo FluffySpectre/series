@@ -103,6 +103,36 @@
             >Nur Favoriten</ion-toggle
           ></ion-item
         >
+
+        <!-- Sorting after property -->
+        <ion-item>
+          <ion-select
+            label="Sortieren nach"
+            [multiple]="false"
+            (ionChange)="onSortingChange($event)"
+            [value]="filter.sortAfterProperty"
+          >
+            <ion-select-option
+              *ngFor="
+                let sortProp of [
+                  { prop: 'title', title: 'Titel' },
+                  { prop: 'productionYears', title: 'Produktionsjahre' }
+                ]
+              "
+              [value]="sortProp.prop"
+              >{{ sortProp.title }}</ion-select-option
+            >
+          </ion-select>
+        </ion-item>
+
+        <!-- Sorting ascend / descend -->
+        <ion-item
+          ><ion-toggle
+            [checked]="filter.sortDescending"
+            (ionChange)="onSortingDescendChange($event)"
+            >Absteigend sortieren</ion-toggle
+          ></ion-item
+        >
       </ion-list>
 
       <ion-label class="created-by ion-padding" color="secondary"
