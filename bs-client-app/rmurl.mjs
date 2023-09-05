@@ -20,6 +20,17 @@ newData = newData.map((s) => {
   return s;
 });
 
+// sort after title asc
+newData.sort((a, b) => {
+  if (a.title < b.title) {
+    return -1;
+  }
+  if (a.title > b.title) {
+    return 1;
+  }
+  return 0;
+});
+
 fs.writeFileSync(
   "./src/assets/series/series.json",
   JSON.stringify(newData, null, 2)
