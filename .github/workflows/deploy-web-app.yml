@@ -1,0 +1,40 @@
+name: 🚀 Deploy web-app on push
+
+on:
+  push:
+    branches: ["master"]
+
+jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    # env:
+    #  SSH_PASS: ${{ secrets.SSH_PASSWORD }}
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v3
+        with:
+          lfs: true
+
+      - name: Checkout LFS objects
+        run: git lfs checkout
+
+      - name: Use Node.js 18
+        uses: actions/setup-node@v2
+        with:
+          node-version: "18"
+
+      - name: 🔨 Build Project
+        run: |
+          cd bs-client-app
+          npm install
+          npm run build --omit=dev
+
+      - name: 📂 Sync files
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: "./bs-client-app/www/"
+          server-dir: "/web/series/"
