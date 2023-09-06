@@ -56,7 +56,9 @@
   <ng-template>
     <ion-header>
       <ion-toolbar>
-        <ion-title>Beschreibung</ion-title>
+        <ion-title
+          [innerHTML]="selectedSeries && (selectedSeries.title | safe : 'html')"
+        ></ion-title>
         <ion-buttons slot="end">
           <ion-button (click)="modal.dismiss()"
             ><ion-icon slot="icon-only" name="close"></ion-icon
