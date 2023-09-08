@@ -26,7 +26,7 @@ jobs:
 
       - name: 🔨 Build Project
         run: |
-          cd bs-client-app
+          cd client
           npm install
           npm run build --omit=dev
 
@@ -36,5 +36,5 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: "./bs-client-app/www/"
+          local-dir: "./client/www/"
           server-dir: "/web/series/"
