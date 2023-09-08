@@ -1,9 +1,12 @@
 <ion-split-pane contentId="main-content">
   <ion-menu contentId="main-content" type="overlay">
+    <ion-header>
+      <ion-toolbar>
+        <ion-title color="secondary">Series App v{{ version }}</ion-title>
+      </ion-toolbar>
+    </ion-header>
     <ion-content>
       <ion-list id="labels-list" *ngIf="activeFilter$ | async as filter">
-        <ion-list-header>Filter</ion-list-header>
-
         <!-- Text search -->
         <ion-item>
           <ion-input
@@ -136,7 +139,7 @@
       </ion-list>
 
       <ion-label class="created-by ion-padding" color="secondary"
-        >v{{ version }} - Created by Sennio</ion-label
+        >Created by Sennio</ion-label
       >
     </ion-content>
   </ion-menu>
