@@ -38,6 +38,8 @@
             [multiple]="true"
             (ionChange)="onGenreFilterChange($event)"
             [value]="filter.genre"
+            cancelText="Abbrechen"
+            okText="Ok"
           >
             <ion-select-option
               *ngFor="let genre of genres$ | async"
@@ -67,6 +69,8 @@
             [multiple]="true"
             (ionChange)="onLanguageFilterChange($event)"
             [value]="filter.language"
+            cancelText="Abbrechen"
+            okText="Ok"
           >
             <ion-select-option
               *ngFor="let language of languages$ | async"
@@ -114,6 +118,8 @@
             [multiple]="false"
             (ionChange)="onSortingChange($event)"
             [value]="filter.sortAfterProperty"
+            cancelText="Abbrechen"
+            okText="Ok"
           >
             <ion-select-option
               *ngFor="
