@@ -6,6 +6,8 @@ import {
   withHashLocation,
 } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { IonicStorageModule } from '@ionic/storage-angular';
+import { Drivers } from '@ionic/storage';
 import { provideHttpClient } from '@angular/common/http';
 
 import { routes } from './app/app.routes';
@@ -21,6 +23,9 @@ bootstrapApplication(AppComponent, {
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     importProvidersFrom(IonicModule.forRoot({})),
     provideRouter(routes, withHashLocation()),
+    importProvidersFrom(IonicStorageModule.forRoot({
+      driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage]
+    })),
     provideHttpClient(),
   ],
 });

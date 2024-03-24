@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ISeries, ISeriesFilter } from './series.service.types';
 import { BehaviorSubject, combineLatest, map } from 'rxjs';
+import { StorageService } from '../storage/storage.service';
 
 @Injectable({
   providedIn: 'root',
@@ -120,12 +121,12 @@ export class SeriesService {
     )
   );
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private storageService: StorageService) {}
 
   setFilter(filter: ISeriesFilter) {
     const newFilter = { ...this.getFilter(), ...filter };
     this.filterAction.next(newFilter);
-    localStorage.setItem('activeFilter', JSON.stringify(newFilter));
+    this.storageService.set('activeFilter', JSON.stringify(newFilter));
   }
 
   getFilter(): ISeriesFilter {
@@ -135,7 +136,7 @@ export class SeriesService {
   setFavorite(favorites: string[]) {
     const newFavorites = [...favorites];
     this.favoriteAction.next(newFavorites);
-    localStorage.setItem('favorites', JSON.stringify(newFavorites));
+    this.storageService.set('favorites', JSON.stringify(newFavorites));
   }
 
   getFavorites(): string[] {

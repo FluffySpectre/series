@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
+import { StorageService } from './shared/services/storage/storage.service';
 import { SeriesService } from './shared/services/series/series.service';
 import { map } from 'rxjs';
 import packageJSON from '../../package.json';
@@ -44,13 +45,19 @@ export class AppComponent {
   activeFilter$ = this.seriesService.filterAction$;
   private dampTimeout: number = 0;
 
-  constructor(private seriesService: SeriesService) {
-    const activeFilterStorage = localStorage.getItem('activeFilter');
+  constructor(private seriesService: SeriesService, private storageService: StorageService) {
+    this.loadSettings();
+  }
+
+  private async loadSettings() {
+    await this.storageService.init();
+
+    const activeFilterStorage = await this.storageService.get('activeFilter');
     if (activeFilterStorage) {
       this.seriesService.setFilter(JSON.parse(activeFilterStorage));
     }
 
-    const favoritesStorage = localStorage.getItem('favorites');
+    const favoritesStorage = await this.storageService.get('favorites');
     if (favoritesStorage) {
       this.seriesService.setFavorite(JSON.parse(favoritesStorage));
     }
