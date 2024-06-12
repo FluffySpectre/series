@@ -1,7 +1,7 @@
 {
   "name": "series",
   "version": "1.2.0",
-  "seriesUpdateDate": "18.11.23",
+  "seriesUpdateDate": "12.06.24",
   "author": "Sennio",
   "scripts": {
     "ng": "ng",
